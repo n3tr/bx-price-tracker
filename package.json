@@ -1,22 +1,39 @@
 {
-  "name": "electron-quick-start",
+  "name": "bx-moon",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "BX.in.th cryptocurrency price tracker",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "pack": "build --dir",
+    "dist": "build"
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "bx-price-tracker",
   "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
+    "bx.in.th",
+    "bitcoin",
+    "menubar",
+    "cryptocurrency"
   ],
-  "author": "GitHub",
+  "author": "Jirat Ki. (@n3tr)",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "~1.7.8"
+    "electron": "~1.7.8",
+    "electron-builder": "^19.52.1",
+    "electron-installer-dmg": "^0.2.1",
+    "electron-packager": "^7.3.0"
+  },
+  "dependencies": {
+    "electron-store": "^1.3.0",
+    "isomorphic-fetch": "^2.2.1",
+    "lodash": "^4.17.4",
+    "moment": "^2.20.1"
+  },
+  "build": {
+    "appId": "com.n3tr.bx-price-tracker",
+    "productName": "Bx The Moon",
+    "mac": {
+      "category": "public.app-category.finance"
+    }
   }
 }

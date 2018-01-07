@@ -4,12 +4,17 @@ const app = electron.app
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
 
+const appTray = require('./appTray')
+
+
 const path = require('path')
 const url = require('url')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
+
+app.dock.hide()
 
 function createWindow () {
   // Create the browser window.
@@ -21,6 +26,7 @@ function createWindow () {
     protocol: 'file:',
     slashes: true
   }))
+  mainWindow.hide()
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
@@ -32,12 +38,28 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+
+  mainWindow.webContents.executeJavaScript(`
+    var path = require('path');
+    module.paths.push(path.resolve('node_modules'));
+    module.paths.push(path.resolve('../node_modules'));
+    module.paths.push(path.resolve(__dirname, '..', '..', 'electron', 'node_modules'));
+    module.paths.push(path.resolve(__dirname, '..', '..', 'electron.asar', 'node_modules'));
+    module.paths.push(path.resolve(__dirname, '..', '..', 'app', 'node_modules'));
+    module.paths.push(path.resolve(__dirname, '..', '..', 'app.asar', 'node_modules'));
+    path = undefined;
+  `);
+}
+
+function initialize() {
+  createWindow()
+  appTray.createTray()
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
+app.on('ready', initialize)
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
@@ -45,6 +67,7 @@ app.on('window-all-closed', function () {
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {
     app.quit()
+    quit()
   }
 })
 
