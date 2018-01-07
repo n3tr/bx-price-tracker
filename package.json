@@ -34,6 +34,9 @@
     "productName": "Bx The Moon",
     "mac": {
       "category": "public.app-category.finance"
+    },
+    "win": {
+      "target": "portable"
     }
   }
 }

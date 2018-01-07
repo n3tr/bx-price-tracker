@@ -45,7 +45,7 @@ function createBXMenuItme() {
     type: 'normal',
     label: 'Open bx.in.th',
     click: () => {
-      shell.openExternal('http://bx.in.th')
+      shell.openExternal('https://bx.in.th')
     }
   }, {
     type: 'separator',
@@ -55,6 +55,7 @@ function createBXMenuItme() {
 function createTimeMenuTemplate() {
   return [{
     type: 'normal',
+    enabled: false,
     label: 'Last update: ' + moment(lastUpdate).format('h:mm:ss a')
   }, {
     type: 'separator',
@@ -75,13 +76,34 @@ function createExitMenuTemplate() {
   }]
 }
 
+function createCreditMenu() {
+  return [{
+    type: 'separator',
+  },{
+    type: 'normal',
+    enabled: false,
+    label: 'Bx the Moon '
+  },{
+    type: 'normal',
+    enabled: false,
+    label: '- Jirat Ki. (@n3tr)'
+  },{
+    type: 'separator',
+  }, {
+    type: 'normal',
+    label: 'Bug report',
+    click: () => {
+      shell.openExternal('https://github.com/n3tr/bx-price-tracker/issues')
+    }
+  }]
+}
+
 function configMenu(json) {
   const tickers = Object.values(json)
-  const bxTemplate = createBXMenuItme()
-  const timeTemplate = createTimeMenuTemplate()
-  const tickerMenuTemplate = tickers.map(createTickerMenuItem)
-  const menuTemplate = bxTemplate.concat(timeTemplate)
-  .concat(tickerMenuTemplate)
+  const menuTemplate = createBXMenuItme()
+  .concat(createTimeMenuTemplate())
+  .concat(tickers.map(createTickerMenuItem))
+  .concat(createCreditMenu())
   .concat(createExitMenuTemplate())
 
   const menu = Menu.buildFromTemplate(menuTemplate)
