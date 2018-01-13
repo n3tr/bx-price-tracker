@@ -77,7 +77,7 @@ class App {
     let template = [].concat(
       MenuHelper.createBXMenuTemplate(),
       MenuHelper.createUpdateTimeMenuTemplate(lastUpdateDate),
-      MenuHelper.createTickerMenuTemplate(tickers, this.selectedParingIds, this.toggleSelection.bind(this)),
+      MenuHelper.createTickerMenuTemplate(_.sortBy(tickers, 'secondaryCurrency'), this.selectedParingIds, this.toggleSelection.bind(this)),
       MenuHelper.createCreditMenuTemplate(),
       MenuHelper.createExitMenuTemplate(() => {
         this.updater.stopUpdating()
