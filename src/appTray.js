@@ -5,7 +5,7 @@ const moment = require('moment');
 const Store = require('electron-store');
 const store = new Store();
 
-const { fetchTicker } = require('./Api')
+const { fetchTickers } = require('./Api')
 
 //
 // Variables
@@ -128,7 +128,7 @@ function toggleSelection(menuItem, browserWindow, event) {
 }
 
 function refreshData() {
-  fetchTicker().then((json) => {
+  fetchTickers().then((json) => {
     lastUpdate = new Date()
     store.set('lastUpdate', lastUpdate)
     latestTickers = json
@@ -148,7 +148,7 @@ function scheduleUpdate() {
 }
 
 function createTray() {
-  appTray = new Tray(path.join(__dirname, 'images', 'bx.png'))
+  appTray = new Tray(path.join(__dirname, '..', 'images', 'bx.png'))
 
   if (!menu) {
     menu = new Menu()
