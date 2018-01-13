@@ -5,7 +5,7 @@
 Cryptocurrency Trading Price Tracker For Bx.in.th
 
 ### Download
-- [Bx The Moon for Mac v1.0.0](https://github.com/n3tr/bx-price-tracker/releases/download/v1.0.0/Bx.The.Moon-1.0.0.dmg)
+- [Bx The Moon for Mac v1.0.1](https://github.com/n3tr/bx-price-tracker/releases/download/v1.0.1/Bx.The.Moon-1.0.1.dmg)
 
 ### Feature
 
