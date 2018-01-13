@@ -6,9 +6,7 @@ const app = electron.app
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
 
-const appTray = require('./src/appTray')
-
-
+const App = require('./src/App')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -38,22 +36,12 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
-
-  mainWindow.webContents.executeJavaScript(`
-    var path = require('path');
-    module.paths.push(path.resolve('node_modules'));
-    module.paths.push(path.resolve('../node_modules'));
-    module.paths.push(path.resolve(__dirname, '..', '..', 'electron', 'node_modules'));
-    module.paths.push(path.resolve(__dirname, '..', '..', 'electron.asar', 'node_modules'));
-    module.paths.push(path.resolve(__dirname, '..', '..', 'app', 'node_modules'));
-    module.paths.push(path.resolve(__dirname, '..', '..', 'app.asar', 'node_modules'));
-    path = undefined;
-  `);
 }
 
 function initialize() {
   createWindow()
-  appTray.createTray()
+  // appTray.createTray()
+  App.initialize()
 }
 
 // This method will be called when Electron has finished

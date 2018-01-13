@@ -1,5 +1,7 @@
 const { fetchTickers } = require('./Api')
+const Ticker = require('./Ticker')
 const Store = require('electron-store');
+
 
 
 const STORE_KEYS = {
@@ -14,9 +16,14 @@ class BxUpdater {
   constructor() {
     this.store = new Store()
     this._updateInterval = this.store.get(STORE_KEYS.UPDATE_INTERVAL_KEY, DEFAULT_INTERVAL)
-    this._latestTickers = this.store.get(STORE_KEYS.LATEST_TICKERS_KEY)
     this._lastUpdateDate = this.store.get(STORE_KEYS.LAST_UPDATE_DATE_KEY)
 
+    this._latestTickers = []
+
+    const rawTickerData = this.store.get(STORE_KEYS.LATEST_TICKERS_KEY)
+    if (rawTickerData && typeof rawTickerData === 'object') {
+      this._latestTickers = Object.values(rawTickerData).map((ticker) => new Ticker(ticker))
+    }
     this._intervalId = undefined
     this._subscribers = {}
     this._scheduling = false
@@ -76,6 +83,9 @@ class BxUpdater {
     }
     this._scheduling = true
     this._cancelSchedule()
+
+    // Doing first time fetch before interval
+    this._fetchData()
     
     setInterval(this._fetchData.bind(this), this._updateInterval)
   }
@@ -93,11 +103,12 @@ class BxUpdater {
   }
 
   _handleTickerData(json) {
-    this._latestTickers = json
+    
+    this._latestTickers = Object.values(json).map((ticker) => new Ticker(ticker))
     this._lastUpdateDate = new Date()
 
-    this.store.set(this._latestTickers, STORE_KEYS.LATEST_TICKERS_KEY)
-    this.store.set(this._lastUpdateDate, STORE_KEYS.LAST_UPDATE_DATE_KEY)
+    this.store.set(STORE_KEYS.LATEST_TICKERS_KEY, json)
+    this.store.set(STORE_KEYS.LAST_UPDATE_DATE_KEY, this._lastUpdateDate)
     
     this._notifySubscribers()
   }
