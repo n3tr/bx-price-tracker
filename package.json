@@ -1,6 +1,6 @@
 {
   "name": "bx-moon",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "BX.in.th cryptocurrency price tracker",
   "main": "main.js",
   "scripts": {
