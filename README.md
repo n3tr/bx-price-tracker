@@ -15,7 +15,6 @@ Cryptocurrency Trading Price Tracker For Bx.in.th
 ### Todo
 
 - [ ] Configurable refresh interval
-- [ ] Show pairing currency in list (eg. XRP / THB)
 
 ### Thanks for awesome graphic from
 
