@@ -1,4 +1,5 @@
 const moment = require('moment')
+const { shell } = require('electron')
 
 function createBXMenuTemplate() {
   return [{
@@ -43,7 +44,6 @@ function createCreditMenuTemplate() {
     label: 'Bx the Moon '
   },{
     type: 'normal',
-    enabled: false,
     label: 'by Jirat Ki. (@n3tr)',
     click: () => {
       shell.openExternal('https://github.com/n3tr/')
