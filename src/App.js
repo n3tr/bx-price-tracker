@@ -78,6 +78,9 @@ class App {
       MenuHelper.createBXMenuTemplate(),
       MenuHelper.createUpdateTimeMenuTemplate(lastUpdateDate),
       MenuHelper.createTickerMenuTemplate(_.sortBy(tickers, 'secondaryCurrency'), this.selectedParingIds, this.toggleSelection.bind(this)),
+      MenuHelper.createRefreshIntervalTemplate(this.updater._updateInterval, (newInterval) => {
+        this.updater.setUpdateInterval(newInterval)
+      }),
       MenuHelper.createCreditMenuTemplate(),
       MenuHelper.createExitMenuTemplate(() => {
         this.updater.stopUpdating()

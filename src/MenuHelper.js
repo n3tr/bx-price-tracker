@@ -69,12 +69,58 @@ function createExitMenuTemplate(onClick) {
   }]
 }
 
-
+function createRefreshIntervalTemplate(currentInterval, onChangeInterval) {
+  const refreshIntervalMenu = [{
+    type: 'radio',
+    label: "10s",
+    click: () => { 
+      onChangeInterval(10000)
+    },
+    checked: currentInterval == 10000
+  }, {
+    type: 'radio',
+    label: "30s",
+    click: () => { 
+      onChangeInterval(30000)
+    },
+    checked: currentInterval === 30000
+  }, {
+    type: 'radio',
+    label: "1min",
+    click: () => { 
+      onChangeInterval(60000)
+    },
+    checked: currentInterval === 60000
+  }, {
+    type: 'radio',
+    label: "5mins",
+    click: () => { 
+      onChangeInterval(300000)
+    },
+    checked: currentInterval === 300000
+  },{
+    type: 'radio',
+    label: "10mins",
+    click: () => { 
+      onChangeInterval(600000)
+    },
+    checked: currentInterval === 600000
+  }]
+  
+  return [{
+    type: 'separator',
+  },{
+    type: 'submenu',
+    label: 'Refresh interval',
+    submenu: refreshIntervalMenu
+  }]
+}
 
 module.exports = {
   createBXMenuTemplate,
   createUpdateTimeMenuTemplate,
   createTickerMenuTemplate,
   createCreditMenuTemplate,
-  createExitMenuTemplate
+  createExitMenuTemplate,
+  createRefreshIntervalTemplate
 }

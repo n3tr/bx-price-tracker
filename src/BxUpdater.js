@@ -72,7 +72,7 @@ class BxUpdater {
 
   setUpdateInterval(interval) {
     this._updateInterval = interval
-    this.store.set(this._updateInterval, STORE_KEYS.UPDATE_INTERVAL_KEY)
+    this.store.set(STORE_KEYS.UPDATE_INTERVAL_KEY, this._updateInterval)
     this._cancelSchedule()
     this._scheduleFetch()
   }
@@ -87,13 +87,13 @@ class BxUpdater {
     // Doing first time fetch before interval
     this._fetchData()
     
-    setInterval(this._fetchData.bind(this), this._updateInterval)
+    this._intervalId = setInterval(this._fetchData.bind(this), this._updateInterval)
   }
 
   _cancelSchedule() {
     this._scheduling = false
     if (this._intervalId) {
-      clearInterval(this.intervalId)
+      clearInterval(this._intervalId)
       this._intervalId = undefined
     }
   }
