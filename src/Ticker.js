@@ -41,15 +41,27 @@ class Ticker {
   }
 
   getPriceDisplay() {
+    // In case we got small decimal number like > 0.000001 (0.00000085)
+    // when we convert it to small, will be 8.5e-7
+    // then, we need custom converter
     if (this.lastPrice < 0.000001) {
+      // convert 0.00000087 -> 8.5e-7 to ['8.5','7']
       const component = String(this.lastPrice).split('e-')
+
+      // replace 8.5 to 85
       const restDecimal = component[0].replace('.', '')
+      // number of zero char we need to append, for example we got 6
       const numberOfZero = Number(component[1]) - 1
       const zeroChar = Array(numberOfZero).join('0')
+
+      // concat '000000' + '85
       let decimalDisplay = `${zeroChar}${restDecimal}`
+
+      // satoshi unit has 8 decimal
       if (decimalDisplay.length < 8) {
         decimalDisplay += Array(8 - decimalDisplay.length).join('0')
       }
+
       return `0.${decimalDisplay}`
     } else {
       return numeral(this.lastPrice).format('0,0.[00000000]')
