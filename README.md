@@ -9,12 +9,14 @@ Cryptocurrency Trading Price Tracker For Bx.in.th
 
 ### Feature
 
+- Mac OS X Menu Bar
+- Display multiple coins
 - Full pairing list from bx.in.th
-- Refresh every 10s
 
 ### Todo
 
-- [ ] Configurable refresh interval
+- Windows / Linux version
+- Fix menu close on data refresh
 
 ### Thanks for awesome graphic from
 
